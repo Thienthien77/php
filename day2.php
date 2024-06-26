@@ -1,64 +1,64 @@
 <?php
 // Biến và kiểu dữ liệu
-$name = "John";
-$age = 30;
-$is_student = true;
+// $name = "John";
+// $age = 30;
+// $is_student = true;
 
-// Cấu trúc điều khiển
-// if ($age > 18) {
-//     echo "You are an adult.";
-// } else {
-//     echo "You are a minor.";
+// // Cấu trúc điều khiển
+// // if ($age > 18) {
+// //     echo "You are an adult.";
+// // } else {
+// //     echo "You are a minor.";
+// // }
+
+// // if (5 % 2 == 0) {
+// //     echo "chẵn";
+// // } else {
+// //     echo "lẻ";
+// // }
+
+// // Vòng lặp for
+// for ($i = 0; $i < 10; $i++) {
+//     // echo "Number: $i\n";
 // }
 
-// if (5 % 2 == 0) {
-//     echo "chẵn";
-// } else {
-//     echo "lẻ";
+// // Hàm trong PHP
+
+// function sample() {
+//     echo "Sample function";
 // }
 
-// Vòng lặp for
-for ($i = 0; $i < 10; $i++) {
-    // echo "Number: $i\n";
-}
+// // sample();
+// // return and not return
+// // void
 
-// Hàm trong PHP
+// function greet($name) {
+//     return "Hello, $name!";
+// }
 
-function sample() {
-    echo "Sample function";
-}
+// // echo greet("Alice");
 
-// sample();
-// return and not return
-// void
+// function add($a, $b) {
+//     return $a + $b;
+// }
 
-function greet($name) {
-    return "Hello, $name!";
-}
+// // echo add(1, 3);
 
-// echo greet("Alice");
+// function minus($a = 9, $b = 4) {
+//     return $a - $b;
+// }
 
-function add($a, $b) {
-    return $a + $b;
-}
+// // echo minus(null , 9);
 
-// echo add(1, 3);
+// // tổng 1 -> n
 
-function minus($a = 9, $b = 4) {
-    return $a - $b;
-}
-
-// echo minus(null , 9);
-
-// tổng 1 -> n
-
-function sumToN($n) {
-    $sum = 0;
-    for ($i = 1; $i <= $n; $i++) {
-        $sum += $i;
-    }
-    echo $sum;
-}
+// function sumToN($n) {
+//     $sum = 0;
+//     for ($i = 1; $i <= $n; $i++) {
+//         $sum += $i;
+//     }
+//     echo $sum;
+// }
 
 //bảng cửu chương
 // function printMultiplicationTable() {
@@ -96,7 +96,7 @@ function sumToN($n) {
 //     if ($n == 0 || $n == 1) {
 //         return 1;
 //     } else {
-//         return $n * factorial($n - 1);
+//         return factorial($n - 2) + factorial($n - 1);
 //     }
 // }
 
@@ -106,3 +106,21 @@ function sumToN($n) {
 // isset and empty
 // isset : đã set và không null
 // empty : đã set và không null và không false
+$something = [1, 4, 6, 3, 2, 5];
+
+function customSort($array) {
+    echo count($array);
+    for ($i = 0; $i < count($array) - 1; $i++) {
+        for ($j = $i + 1; $j < count($array); $j++) {
+            if ($array[$i] > $array[$j]) {
+                $temp = $array[$i];
+                $array[$i] = $array[$j];
+                $array[$j] = $temp;
+            }
+        }
+    }
+    return $array;
+}
+
+$rs = customSort($something);
+print_r($rs);
