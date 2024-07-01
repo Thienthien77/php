@@ -18,7 +18,7 @@
 <pre> db </pre>
 
 <p> action </p>
-<pre> 
+<pre>
 db.<collection>.<command>(find, insert, update, updateMany, ...)
 </pre>
 
@@ -91,7 +91,7 @@ query = {
 { key : {$nin : value } }
 </pre>
 #### Example
-<pre> 
+<pre>
 db.users.find({Identifier : 9012});
 db.users.find({Identifier : {$gt : 9012} });
 </pre>
@@ -99,7 +99,7 @@ db.users.find({Identifier : {$gt : 9012} });
 ### Regular expression
 - ^ : start
 - $ : end
-<pre> 
+<pre>
 db.example.find({Email : /.info/})
 </pre>
 
@@ -160,7 +160,6 @@ howToUpdate = {
 }
 
 db.detail.updateOne({_id : ObjectId('668185b966ce88c4e970cf5b')} , {$set : {LastName : "TinhDOan"}})
-
 </pre>
 
 ## Delete
@@ -176,6 +175,5 @@ whatToDelete = {
 }
 
 db.detail.deleteOne({_id : ObjectId('668185b966ce88c4e970cf5b')})
-
 </pre>
 
