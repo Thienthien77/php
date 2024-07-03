@@ -7,6 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="/user"> click here</a>
+tinh doan da o day
 </body>
 </html>

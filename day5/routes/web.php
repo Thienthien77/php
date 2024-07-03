@@ -6,11 +6,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return response()->json([
+        "status" => "ok",
+        "status1" => "ok",
+        "status12" => "ok",
+    ]);
 });
 
 Route::get('/greeting', function () {
-    return 'Hello World';
+    $a = 2;
+    $b = 3;
+    return $a + $b;
 });
 
 Route::get('/users', function (Request $request) {
