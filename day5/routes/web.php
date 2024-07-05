@@ -23,7 +23,12 @@ Route::get('/users', function (Request $request) {
     // ...
 });
 
+
 Route::get('/user', [UserController::class, 'index']);
+
+Route::get('/testing', function() {
+    dd('teing');
+});
 
 // all method
 // Route::get($uri, $callback);
