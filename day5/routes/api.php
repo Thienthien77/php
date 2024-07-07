@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Bill;
 use App\Models\Food;
 use App\Models\Order;
 use App\Models\Table;
@@ -11,48 +12,122 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::get('/table', function () {
-    $tables = Table::all();
 
-    return response()->json($tables);
+Route::prefix('tables')->group(function () {
+
+    Route::get('/', function () {
+        $tables = Table::all();
+
+        return response()->json($tables);
+    });
+
+    Route::put('/{id}', function (Request $request, $id) {
+        $table = Table::find($request->id) ;
+        $table->customer_name = $request->customerName;
+        $table->quantity = $request->quantity;
+        $table->status = $request->status;
+
+        $table->save();
+
+        return response()->json([
+            "status" => "success",
+            "data" => $table
+        ]);
+    });
 });
+
 
 Route::get('/foods', function () {
     $foods = Food::all();
 
     return response()->json($foods);
 });
-Route::get('/orders', function () {
 
-    /**
-     * [
-     *  id : order id
-     * items [
-     * Order::all()
-     * ]
-     * ]
-     */
-    $orders = Order::where('id_table', 1)->get();
-    $result = [
-        "id" => 1,
-        "items" => $orders
-    ];
+Route::prefix('orders')->group(function () {
 
-    return response()->json([$result]);
-});
+    Route::delete('/{id}' , function ($id) {
+        $order = Order::where('id_table' ,$id);
+        $order->delete();
 
-Route::put('/orders/{id}', function (Request $request, $id) {
+        return response()->json('delete successful');
+    });
 
-    $items = $request->items;
+    Route::get('/', function () {
+        $idOrders = Order::select('id_table')->distinct()->pluck('id_table');
 
-    foreach ($items as $item) {
-        // dd($item["id_table"]);
-        Order::create([
-            "id_table" => 1,
-            "id_food" => 2,
-            "quantity" => 2,
+
+        $result = [];
+
+        foreach ($idOrders as $id) {
+            $orders = Order::where('id_table', $id)->get();
+            $data = [
+                "id" => $id,
+                "items" => $orders
+            ];
+
+            array_push($result, $data);
+        }
+
+        return response()->json($result);
+    });
+
+    Route::put('/{id}', function (Request $request, $id) {
+
+        $items = $request->items;
+
+        // dd($items);
+
+        foreach ($items as $item) {
+            // dd($item["id_table"]);
+            Order::create([
+                "id_table" => $id,
+                "id_food" => $item["id_food"] ?? $item['idFood'],
+                "quantity" => $item["quantity"],
+            ]);
+        }
+
+        return response()->json([
+            "success" => true,
         ]);
-    }
+    });
+    Route::post('/', function (Request $request) {
 
-    return response()->json('ok');
+        $items = $request->items;
+        $id = $request->id;
+
+        // dd($items);
+
+        foreach ($items as $item) {
+            // dd($item["id_table"]);
+            Order::create([
+                "id_table" => $id,
+                "id_food" => $item["id_food"] ?? $item['idFood'],
+                "quantity" => $item["quantity"],
+            ]);
+        }
+
+        return response()->json([
+            "success" => true,
+        ]);
+    });
 });
+
+Route::prefix('bills')->group(function () {
+    Route::get('/', function() {
+        $bills = Bill::all();
+
+        return response()->json($bills);
+    });
+
+    Route::post('/', function(Request $request) {
+        $bills = Bill::create([
+            'id_table' => $request->id_table ?? $request->idTable,
+            'total_amount' => $request->total_amount ?? $request->totalAmount,
+            'time' => $request->time,
+
+        ]);
+
+        return response()->json($bills);
+    });
+});
+
