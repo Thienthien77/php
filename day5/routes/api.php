@@ -12,12 +12,18 @@ Route::prefix('auth')->group(function () {
     Route::post('register', [UserController::class, 'register']);
 });
 
-Route::prefix('tables')->middleware('auth:api')->group(function () {
+Route::prefix('tables')->group(function () {
     Route::get('/', [TableController::class, 'getTables']);
+    Route::delete('/{tableId}', [TableController::class, 'deleteTables']);
     Route::put('/{id}', [TableController::class, 'update']);
+    Route::post('/', [TableController::class, 'create']);
 });
-
-Route::get('/foods', [FoodController::class, 'getFoods']);
+Route::prefix('foods')->group(function () {
+    Route::get('/', [FoodController::class, 'getFoods']);
+    Route::delete('/{id}', [FoodController::class, 'deleteFoods']);
+    Route::put('/{id}', [FoodController::class, 'update']);
+    Route::post('/', [FoodController::class, 'create']);
+});
 
 Route::prefix('orders')->middleware('auth:api')->group(function () {
     Route::delete('/{id}' , [OrderController::class, 'delete']);

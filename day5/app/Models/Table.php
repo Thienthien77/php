@@ -10,4 +10,10 @@ class Table extends Model
 
     public $timestamps = false;
     use HasFactory;
+
+    public $fillable = [
+        "customer_name",
+        "quantity",
+        "status",
+    ];
 }
