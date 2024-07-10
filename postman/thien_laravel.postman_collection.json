@@ -1,9 +1,8 @@
 {
 	"info": {
-		"_postman_id": "332a61f9-2f29-4a07-a026-1f89da883812",
+		"_postman_id": "29094c2f-122a-4d5e-b11f-22357b6fa3d0",
 		"name": "thien_laravel",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "29744368"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -76,6 +75,72 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "acces-token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"grant_type\" : \"password\",\n    \"client_id\" : 3,\n    \"client_secret\" : \"XoDtMv6zDYmJ7U8joTR1Gwq5X95Te1yv4tMxPjj6\",\n    \"username\" : \"tinh@gmail.com\",\n    \"password\" : \"123456\",\n    \"scope\" : \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/oauth/token",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh-token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"grant_type\" : \"refresh_token\",\n    \"client_id\" : 3,\n    \"client_secret\" : \"XoDtMv6zDYmJ7U8joTR1Gwq5X95Te1yv4tMxPjj6\",\n    \"refresh_token\" : \"def50200fb911da9c660555dada4b4ddc95aac9cd4a2a28947fbd4b72d62d9e604c6727b6c6ac73168e1693a39cfa691401dbc6937a321968b5284729507fc4d039e32011312efe52f5b75e40b3c25d4086a9e9db80d5e4e5ff85ee97e16fe25f1794b60f7ee19c2ac76ceaae5ae74f32e78d0f482aaa5c33a10367fd75440c24bca7062c780983d0c92c0d38cc57a5c388f29f30cfff1f15bf1b1ee7fbc1f28c72d1d56c292ec7b41710a980408138154509759f507866d7096e71a81793198d49b62c21e0e320a3071097a2115a8c5b6e7cab0bb30e30a53249f6901d977079a45d4bfe358c6e82c1ce6ed74cda2921e22bcc4a689814f016822171bf4e683f82a64ec66d20b90d97edec4e3b89952ff1a7df2149f69f475b4d175aab871f99688847732dfe8dbe5f46e2b43e04a894a53666f84f99b45a567f5cdd38e278f00d002392da1423e373f738ee2af56bd01909ed84aeb8d0352f59a43d5ce5eb137\",\n    \"scope\" : \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/oauth/token",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -94,6 +159,11 @@
 								"key": "Accept",
 								"value": "application/json",
 								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
 							}
 						],
 						"body": {
