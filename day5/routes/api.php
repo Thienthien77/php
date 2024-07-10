@@ -12,7 +12,7 @@ Route::prefix('auth')->group(function () {
     Route::post('register', [UserController::class, 'register']);
 });
 
-Route::prefix('tables')->group(function () {
+Route::prefix('tables')->middleware('auth:api')->group(function () {
     Route::get('/', [TableController::class, 'getTables']);
     Route::put('/{id}', [TableController::class, 'update']);
 });

@@ -6,6 +6,8 @@ use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
+
 
 class UserController extends Controller
 {
@@ -24,12 +26,18 @@ class UserController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            $token = Auth::user()->createToken("token")->accessToken;
-
-            return response()->json([
-                "success" => true,
-                "access_token" => $token,
+            
+            $response = Http::asForm()->post('http://localhost:9000/oauth/token', [
+                'grant_type' => 'password',
+                'client_id' => 3,
+                'client_secret' => 'XoDtMv6zDYmJ7U8joTR1Gwq5X95Te1yv4tMxPjj6',
+                'username' => 'tinh@gmail.com',
+                'password' => '123',
+                'scope' => '',
             ]);
+            
+            return $response->json();
+
         }
         return response()->json([
             "success" => false,
