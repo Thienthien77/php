@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateOrderRequest;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
@@ -19,7 +20,7 @@ class OrderController extends Controller
         $result = [];
 
         foreach ($idOrders as $id) {
-            $orders = Order::where('id_table', $id)->get();
+            $orders = Order::where('id_table', $id)->with('food')->get();
             $data = [
                 "id" => $id,
                 "items" => $orders
@@ -45,14 +46,13 @@ class OrderController extends Controller
         ]);
     }
 
-    public function create(Request $request) {
+    public function create(CreateOrderRequest $request) {
 
         $items = $request->items;
-        $id = $request->id;
 
         foreach ($items as $item) {
             Order::create([
-                "id_table" => $id,
+                "id_table" => $item['id_table'],
                 "id_food" => $item["id_food"] ?? $item['idFood'],
                 "quantity" => $item["quantity"],
             ]);
@@ -61,5 +61,29 @@ class OrderController extends Controller
         return response()->json([
             "success" => true,
         ]);
+    }
+
+    public function getRevenue() {
+
+        $idOrders = Order::select('id_table')->distinct()->pluck('id_table');
+        $result = [];
+
+        foreach ($idOrders as $id) {
+            $orders = Order::where('id_table', $id)->with('food')->get();
+
+            $sum = 0;
+
+            foreach ($orders as $order) {
+                $sum += $order->food->price * $order->quantity;
+            }
+            $data = [
+                "id" => $id,
+                "sum" => $sum
+            ];
+
+            array_push($result, $data);
+        }
+
+        return response()->json($result);
     }
 }

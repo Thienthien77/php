@@ -12,14 +12,14 @@ Route::prefix('auth')->group(function () {
     Route::post('register', [UserController::class, 'register']);
 });
 
-Route::prefix('tables')->middleware('auth:api')->group(function () {
+Route::prefix('tables')->group(function () {
     Route::get('/', [TableController::class, 'getTables']);
     Route::put('/{id}', [TableController::class, 'update']);
 });
 
 Route::get('/foods', [FoodController::class, 'getFoods']);
 
-Route::prefix('orders')->middleware('auth:api')->group(function () {
+Route::prefix('orders')->group(function () {
     Route::delete('/{id}' , [OrderController::class, 'delete']);
     Route::get('/', [OrderController::class, 'getOrders']);
     Route::put('/{id}', [OrderController::class, 'update']);
@@ -29,5 +29,9 @@ Route::prefix('orders')->middleware('auth:api')->group(function () {
 Route::prefix('bills')->group(function () {
     Route::get('/', [BillController::class, 'getBills']);
     Route::post('/', [BillController::class, 'create']);
+});
+
+Route::prefix('dashboard')->group(function () {
+    Route::get('/revenue', [OrderController::class, 'getRevenue']);
 });
 
