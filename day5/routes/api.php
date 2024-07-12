@@ -5,6 +5,7 @@ use App\Http\Controllers\FoodController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\TestMiddleWare;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('auth')->group(function () {
@@ -13,7 +14,7 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::prefix('tables')->group(function () {
-    Route::get('/', [TableController::class, 'getTables']);
+    Route::get('/', [TableController::class, 'getTables'])->middleware(['auth:api', TestMiddleWare::class]);
     Route::put('/{id}', [TableController::class, 'update']);
 });
 

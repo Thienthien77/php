@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GetTableRequest;
 use App\Models\Table;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TableController extends Controller
 {
-    public function getTables() {
+    public function getTables(GetTableRequest $request) {
+        // dd(Auth::user());
         $tables = Table::all();
         return response()->json($tables);
     }
