@@ -17,8 +17,9 @@ class TestMiddleWare
     public function handle(Request $request, Closure $next): Response
     {
         $user = $request->user();
-        dd($user);
+        // dd($user);
         // dd(Auth::user());
-        return $next($request);
+        // return $next($request);
+        return response()->json($user);
     }
 }
