@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FoodRequest;
 use App\Models\Food;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,7 @@ class FoodController extends Controller
             "status" => "success"
         ]);
     }
-    public function update(Request $request, $id) {
+    public function update(FoodRequest $request, $id) {
         $foods = Food::find($request->id) ;
         $foods->name = $request->name;
         $foods->img = $request->img;
@@ -38,7 +39,9 @@ class FoodController extends Controller
             "data" => $foods
         ]);
     }
-    public function create(Request $request) {
+    public function create(FoodRequest $request) {
+        // validation
+
         $foods = Food::create([
             "name" => $request->name,
             "img" => $request->img,

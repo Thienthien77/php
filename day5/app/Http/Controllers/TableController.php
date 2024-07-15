@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TableRequest;
 use App\Models\Table;
 use Illuminate\Http\Request;
 
 class TableController extends Controller
 {
-    public function create(Request $request) {
+    public function create(TableRequest $request) {
         $table = Table::create([
             "customer_name" => $request->customer_name,
             "quantity" => $request->quantity,
@@ -23,7 +24,7 @@ class TableController extends Controller
         $tables = Table::all();
         return response()->json($tables);
     }
-    public function update(Request $request, $id) {
+    public function update(TableRequest $request, $id) {
         $table = Table::find($request->id) ;
         $table->customer_name = $request->customer_name;
         $table->quantity = $request->quantity;
