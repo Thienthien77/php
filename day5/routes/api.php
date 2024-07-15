@@ -45,6 +45,7 @@ Route::prefix('bills')->group(function () {
 
 Route::prefix('report')->group(function () {
     Route::get('/', [ReportController::class, 'revenue']);
+    Route::get('/{month}', [ReportController::class, 'totalByMonth']);
 });
 
 

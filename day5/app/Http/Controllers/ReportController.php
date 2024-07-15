@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bill;
 use App\Models\Food;
 use App\Models\Order;
 use Illuminate\Http\Request;
@@ -15,7 +16,6 @@ class ReportController extends Controller
         // dd($idTables);
 
         $revenue = [];
-
         // relationship
         // accestor and mutator
 
@@ -38,4 +38,18 @@ class ReportController extends Controller
         ]);
 
     }
+    public function totalByMonth($month) {
+        $bill =  Bill::whereMonth('time', '=', $month)->get();
+
+        $total = 0;
+        foreach ($bill as $item) {
+            $total += $item->total_amount;
+        }
+        return response()->json([
+            "success" => true,
+            "data" => $total,
+        ]);
+    }
+
+    // total all time
 }
