@@ -13,4 +13,12 @@ class Order extends Model
 
     public $fillable = ['id_table', 'id_food', 'quantity'];
 
+    public function food() {
+        return $this->belongsTo(Food::class, 'id_food', 'id');
+    }
+
+    public function table() {
+        return $this->belongsTo(Table::class, 'id_table', 'id');
+    }
+
 }

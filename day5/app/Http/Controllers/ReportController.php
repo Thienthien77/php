@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Bill;
 use App\Models\Food;
 use App\Models\Order;
+use App\Models\Table;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
     public function revenue() {
+        
         $idTables = Order::select('id_table')->distinct()->pluck('id_table');
 
         // dd($idTables);
@@ -23,13 +25,16 @@ class ReportController extends Controller
             $order = Order::where('id_table', $idTable)->get();
 
             $total = 0;
+            $customerName = "";
             foreach ($order as $item) {
-                $food = Food::find($item->id_food);
+                $food = $item->food;
                 $total += $food->price * $item->quantity;
+                $customerName = $item->table->customer_name;
             }
             array_push($revenue, [
                 "id_table" => $idTable,
                 "total" => $total,
+                "customer_name" => $customerName,
             ]);
         }
         return response()->json([
