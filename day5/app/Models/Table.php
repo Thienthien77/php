@@ -28,4 +28,9 @@ class Table extends Model
     //     $this->attributes['customer_name'] = "tinhdoan da o day";
     // }
 
+    public $fillable = [
+        "customer_name",
+        "quantity",
+        "status",
+    ];
 }

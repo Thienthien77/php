@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Table;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -14,38 +13,22 @@ class TableSeeder extends Seeder
      */
     public function run(): void
     {
-
-        DB::table('tables')->truncate();
-        // DB::table('tables')->insert([
-        //     [
-        //         'customer_name' => null,
-        //         'quantity' => null,
-        //         'status' => null,
-        //     ],
-        //     [
-        //         'customer_name' => null,
-        //         'quantity' => null,
-        //         'status' => null,
-        //     ],
-        //     [
-        //         'customer_name' => null,
-        //         'quantity' => null,
-        //         'status' => null,
-        //     ],
-        //     [
-        //         'customer_name' => null,
-        //         'quantity' => null,
-        //         'status' => null,
-        //     ],
-        //     [
-        //         'customer_name' => null,
-        //         'quantity' => null,
-        //         'status' => null,
-        //     ]
-        // ]);
-
-
-        Table::factory(10)->create();
-
+        DB::table('tables')->insert([
+            [
+                'customer_name' => 'Table 1',
+                'quantity' => 2,
+                "status" => 1
+            ],
+            [
+                'customer_name' => 'Table 2',
+                'quantity' => 2,
+                "status" => 1
+            ],
+            [
+                'customer_name' => 'Table 3',
+                'quantity' => 2,
+                "status" => 1
+            ],
+        ]);
     }
 }

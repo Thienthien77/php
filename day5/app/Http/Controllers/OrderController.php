@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateOrderRequest;
+use App\Http\Requests\OrderRequest;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
@@ -32,7 +32,7 @@ class OrderController extends Controller
         return response()->json($result);
     }
 
-    public function update(Request $request, $id) {
+    public function update(OrderRequest $request, $id) {
         $items = $request->items;
         foreach ($items as $item) {
             Order::create([
@@ -46,14 +46,14 @@ class OrderController extends Controller
         ]);
     }
 
-    public function create(CreateOrderRequest $request) {
-
+    public function create(OrderRequest $request) {
+ // validation
         $items = $request->items;
 
         foreach ($items as $item) {
             Order::create([
-                "id_table" => $item['id_table'],
-                "id_food" => $item["id_food"] ?? $item['idFood'],
+                "id_table" => $id,
+                "id_food" => $item["id_food"],
                 "quantity" => $item["quantity"],
             ]);
         }
