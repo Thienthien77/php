@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('quantity')->nullable();
             $table->boolean('status')->nullable();
             $table->timestamp('create_at')->useCurrent();
-            $table->timestamp('update_at');
+            $table->timestamp('update_at')->nullable()->useCurrentOnUpdate();
         });
     }
 

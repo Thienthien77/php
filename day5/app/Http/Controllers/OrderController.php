@@ -52,7 +52,7 @@ class OrderController extends Controller
 
         foreach ($items as $item) {
             Order::create([
-                "id_table" => $id,
+                "id_table" => $item["id_table"],
                 "id_food" => $item["id_food"],
                 "quantity" => $item["quantity"],
             ]);
