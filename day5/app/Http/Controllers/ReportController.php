@@ -24,7 +24,7 @@ class ReportController extends Controller
 
             $total = 0;
             foreach ($order as $item) {
-                $food = Food::find($item->id_food);
+                $food = $item->food;
                 $total += $food->price * $item->quantity;
             }
             array_push($revenue, [
