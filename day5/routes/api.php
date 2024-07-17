@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BillController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReportController;
@@ -46,6 +47,12 @@ Route::prefix('bills')->group(function () {
 Route::prefix('report')->group(function () {
     Route::get('/', [ReportController::class, 'revenue']);
     Route::get('/{month}', [ReportController::class, 'totalByMonth']);
+});
+Route::prefix('customers')->group(function () {
+    Route::get('/', [CustomerController::class, 'get']);
+    Route::post('/', [CustomerController::class, 'create']);
+    Route::delete('/{id}' , [CustomerController::class, 'delete']);
+    Route::put('/{id}', [CustomerController::class, 'update']);
 });
 
 
